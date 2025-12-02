@@ -252,6 +252,8 @@ class Cell:
         self.row = row
         self.col = col
         self.screen = screen
+        self.sketched_value = None
+        self.selected = False
 
     def set_cell_value(self, value):
         self.value = value
@@ -263,11 +265,36 @@ class Cell:
         self.sketched_value = value
 
     def draw(self):
-        pass
+        # 57 x 57
+        cell_size = 513 // 9  # = 57 pixels per cell
+        x = self.col * cell_size
+        y = self.row * cell_size
+        rect = pygame.Rect(x, y, cell_size, cell_size)
+
+        # Check if mouse is inside this cell
+        mouse_pos = pygame.mouse.get_pos()
+        mouse_pressed = pygame.mouse.get_pressed()[0]  # left button
+
+        if rect.collidepoint(mouse_pos) and mouse_pressed:
+            pygame.draw.rect(self.screen, (255, 0, 0), rect, 3)
+        else:
+            pygame.draw.rect(self.screen, (0, 0, 0), rect, 1)
+
+        # Draw the main value if nonzero
+        if self.value != 0:
+            font = pygame.font.SysFont("arial", 32)
+            text = font.render(str(self.value), True, (0, 0, 0))
+            text_rect = text.get_rect(center=rect.center)
+            self.screen.blit(text, text_rect)
+        elif self.sketched_value != 0:
+            sketch_font = pygame.font.SysFont("arial", 18)
+            text = sketch_font.render(str(self.sketched_value), True, (150, 150, 150))
+            text_rect = text.get_rect(center=rect.center)
+            self.screen.blit(text, text_rect)
 
 
 class Board:
-    def __init__(self, width, height, screen, difficulty)
+    def __init__(self, width, height, screen, difficulty):
         self.width = width
         self.height = height
         self.screen = screen
