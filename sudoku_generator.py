@@ -346,7 +346,7 @@ class Board:
             return row, col
         return None
 
-        pass
+
     # If a tuple of (x,y) coordinates is within the displayed board,
     # this function returns a tuple of the (row, col) of the cell which was clicked.
     # Otherwise, this function returns None.
