@@ -242,10 +242,10 @@ Return: list[list] (a 2D Python list to represent the board)
 def generate_sudoku(size, removed):
     sudoku = SudokuGenerator(size, removed)
     sudoku.fill_values()
-    board = sudoku.get_board()
+    solution = sudoku.get_board()
     sudoku.remove_cells()
     board = sudoku.get_board()
-    return board
+    return board, solution
 
 class Cell:
     def __init__(self, value, row, col, screen):
@@ -307,7 +307,7 @@ class Board:
         if self.difficulty == "Hard":
             removed = 50
 
-        self.board = generate_sudoku(9, removed)
+        self.board, self.solution = generate_sudoku(9, removed)
         self.original_board = [row[:] for row in self.board]
 
         self.cells = [[Cell(self.board[r][c], r, c, screen) for c in range(9)] for r in range(9)]
@@ -410,22 +410,27 @@ class Board:
         #Finds an empty cell and returns its row and col as a tuple (x,y).
 
     def check_board(self):
-        for r in range(9):
-            nums = set()
-            for c in range(9):
-                if self.board[r][c] in nums:
+        for i in range(len(self.board)):
+            for j in range(len(self.board[i])):
+                if self.board[i][j] != self.solution[i][j]:
                     return False
-                nums.add(self.board[r][c])
-
-        for c in range(9):
-            nums = set()
-            for r in range(9):
-                if self.board[r][c] in nums:
-                    return False
-                nums.add(self.board[r][c])
-
-
         return True
+        # for r in range(9):
+        #     nums = set()
+        #     for c in range(9):
+        #         if self.board[r][c] in nums:
+        #             return False
+        #         nums.add(self.board[r][c])
+        #
+        # for c in range(9):
+        #     nums = set()
+        #     for r in range(9):
+        #         if self.board[r][c] in nums:
+        #             return False
+        #         nums.add(self.board[r][c])
+        #
+        #
+        # return True
 
 
 
