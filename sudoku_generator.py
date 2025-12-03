@@ -346,7 +346,7 @@ class Board:
             return row, col
         return None
 
-        pass
+
     # If a tuple of (x,y) coordinates is within the displayed board,
     # this function returns a tuple of the (row, col) of the cell which was clicked.
     # Otherwise, this function returns None.
@@ -404,4 +404,22 @@ class Board:
         #Finds an empty cell and returns its row and col as a tuple (x,y).
 
     def check_board(self):
-        pass
+        for r in range(9):
+            nums = set()
+            for c in range(9):
+                if self.board[r][c] in nums:
+                    return False
+                nums.add(self.board[r][c])
+
+        for c in range(9):
+            nums = set()
+            for r in range(9):
+                if self.board[r][c] in nums:
+                    return False
+                nums.add(self.board[r][c])
+
+
+        return True
+
+
+
