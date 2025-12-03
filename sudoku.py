@@ -2,6 +2,7 @@ import pygame
 import sys
 from sudoku_generator import *
 pygame.init()
+pygame.mixer.init()
 
 # Window
 WIDTH, HEIGHT = 800, 600
@@ -18,6 +19,9 @@ game_bg = (200, 215, 235)
 welcome_bg = pygame.transform.scale(welcome_bg, (WIDTH, HEIGHT))
 won_bg = pygame.transform.scale(won_bg, (WIDTH, HEIGHT))
 over_bg = pygame.transform.scale(over_bg, (WIDTH, HEIGHT))
+pygame.mixer.music.load("intense-intense-chase-investigation-music-412316.mp3")
+pygame.mixer.music.set_volume(0.5)
+pygame.mixer.music.play(-1)
 
 # Fonts
 font_large = pygame.font.SysFont(None, 70)
