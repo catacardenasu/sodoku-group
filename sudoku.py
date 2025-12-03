@@ -97,10 +97,7 @@ while True:
                         board = Board(513, 513, screen, difficulty)
 
                         selected_row, selected_col = 0,0
-                        for r in range(9):
-                            for c in range(9):
-                                board.cells[r][c].selected = (r == selected_row and c == selected_col)
-
+                        board.select(0,0)
 
             if state == GAME:
                 for b in game_buttons:
@@ -116,6 +113,7 @@ while True:
                 click = board.click(mouse_pos[0] - 142, mouse_pos[1])
                 if click:
                     board.select(click[0], click[1])
+                    selected_row, selected_col = click[0], click[1]
 
 
             elif state == WON:
@@ -136,10 +134,7 @@ while True:
             elif event.key == pygame.K_DOWN and selected_row < 8:
                 selected_row += 1
 
-
-            for r in range(9):
-                for c in range(9):
-                    board.cells[r][c].selected = (r == selected_row and c == selected_col)
+            board.select(selected_row, selected_col)
 
             if event.key == pygame.K_1:
                 board.sketch(1)
@@ -162,7 +157,6 @@ while True:
 
             elif event.key == pygame.K_RETURN:
                 board.place_number(board.cells[selected_row][selected_col].sketched_value)
-                board.update_board()
 
                 if board.is_full():
                     if board.check_board():

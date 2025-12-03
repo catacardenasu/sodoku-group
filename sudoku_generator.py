@@ -242,9 +242,9 @@ Return: list[list] (a 2D Python list to represent the board)
 def generate_sudoku(size, removed):
     sudoku = SudokuGenerator(size, removed)
     sudoku.fill_values()
-    solution = sudoku.get_board()
+    solution = [row[:] for row in sudoku.get_board()]
     sudoku.remove_cells()
-    board = sudoku.get_board()
+    board = [row[:] for row in sudoku.get_board()]
     return board, solution
 
 class Cell:
@@ -345,7 +345,7 @@ class Board:
         # Once a cell has been selected, the user can edit its value or sketched value.
 
     def click(self, x, y):
-        if x < 513 and y < 513:
+        if 0 <= x < 513 and 0<= y < 513:
             row = y // 57
             col = x // 57
             return row, col
@@ -361,7 +361,7 @@ class Board:
             r, c = self.selected_cell
             if self.original_board[r][c] == 0:
                 self.cells[r][c].set_cell_value(0)
-                self.cells[r][c].set_sketched_value(0)
+                #self.cells[r][c].set_sketched_value(0)
     #     Clears the value cell.
     # Note that the user can only remove the cell values and
     # sketched values that are filled by themselves.
@@ -418,9 +418,9 @@ class Board:
         #Finds an empty cell and returns its row and col as a tuple (x,y).
 
     def check_board(self):
-        for i in range(len(self.board)):
-            for j in range(len(self.board[i])):
-                if self.board[i][j] != self.solution[i][j]:
+        for i in range(9):
+            for j in range(9):
+                if self.cells[i][j].value != self.solution[i][j]:
                     return False
         return True
         # for r in range(9):
