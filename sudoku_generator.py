@@ -342,9 +342,9 @@ class Board:
         # Once a cell has been selected, the user can edit its value or sketched value.
 
     def click(self, x, y):
-        if x < 513 and y < 513:
+        if 142 <= x <= 655 and 0 <= y <= 513:
             row = y // 57
-            col = x // 57
+            col = (x-142) // 57
             return row, col
         return None
 
