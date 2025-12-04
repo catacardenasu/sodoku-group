@@ -433,19 +433,3 @@ class Board:
                 if self.cells[i][j].value != self.solution[i][j]:
                     return False
         return True
-        # for r in range(9):
-        #     nums = set()
-        #     for c in range(9):
-        #         if self.board[r][c] in nums:
-        #             return False
-        #         nums.add(self.board[r][c])
-        #
-        # for c in range(9):
-        #     nums = set()
-        #     for r in range(9):
-        #         if self.board[r][c] in nums:
-        #             return False
-        #         nums.add(self.board[r][c])
-        #
-        #
-        # return True
